@@ -9,5 +9,4 @@ class AhoCorasick(unittest.TestCase):
 
     def test_wrong_input(self):
         with self.assertRaises(TypeError):
-            search(build([5353, 543, 5343]), 42543)
             search(build(['abc', 'aab', 'cba']), None)

@@ -1,6 +1,9 @@
 def build(patterns):
     #tworzymy automat
-    patterns = sorted(patterns, key=len)    #sortujemy wzorce od najkrótszego do najdłuższego
+    try:
+        patterns = sorted(patterns, key=len)    #sortujemy wzorce od najkrótszego do najdłuższego
+    except TypeError:
+        print('Wpisuje się we wzorcu tylko napisy/stringiem!')
     dict = {}   #automat
     fail = {}   #fail-linki
     inside = {} #wzorzec zawierający w środku/na końcu inny wzorzec
@@ -33,7 +36,6 @@ def build(patterns):
 
     for x in range(i):  #tworzymy w słowniku fail klucze o indeach ze słownika dict
         fail[x] = {}
-
 
     for v in dict.keys():
         if v == 0:
@@ -68,6 +70,10 @@ def search(automat, text):
     find = []   #tablica indeksów znalezionych wzorców
     l = 0       #długośc danego wzorca
     s = 0       #stan w jakim się znajdujemy
+    try:
+        len(text)
+    except TypeError:
+        print('Tekst może być tylko napisem/stringiem!')
     for i in range(len(text)):
         while True:
             if (dict[s] == {-1: None}) | (text[i] not in dict[s].keys()):   #przechodzenie po fail-linku
