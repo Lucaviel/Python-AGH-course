@@ -4,17 +4,16 @@ def build(patterns):
         patterns = sorted(patterns, key=len)    #sortujemy wzorce od najkrótszego do najdłuższego
     except TypeError:
         print('Wpisuje się we wzorcu tylko napisy/stringiem!')
-    dict = {}   #automat
+    # wyjątek "obsłużony", funkcja działa dalej
+    dict = {}   #automat  # przesłonięcie nazwy wbudowanej
     fail = {}   #fail-linki
     inside = {} #wzorzec zawierający w środku/na końcu inny wzorzec
     length = [0]
     i = 0       #liczy ilosc wszystkich indexow
     for x in patterns:
-        a = 0   #aktualny index
+        a = 0   #aktualny index  # jeśli trzeba skomentować nazwę zmiennej, to to jest zła nazwa
         for j in range(len(x)+1):
-            try:
-                x[j]    #wyznaczanie stanu akcpetującego (None w słowniku)
-            except IndexError:
+            if not j in x:
                 dict[a] = {-1: None}
                 break
             if a not in dict.keys():    #tworzymy w dict klucz o danym indexie, jeżeli wcześniej nie istniał
@@ -73,7 +72,7 @@ def search(automat, text):
     try:
         len(text)
     except TypeError:
-        print('Tekst może być tylko napisem/stringiem!')
+        print('Tekst może być tylko napisem/stringiem!')  # lista też ma długość
     for i in range(len(text)):
         while True:
             if (dict[s] == {-1: None}) | (text[i] not in dict[s].keys()):   #przechodzenie po fail-linku
