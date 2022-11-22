@@ -4,8 +4,8 @@ class Graph:
 
     def add_vertex(self, vertex):   #dodawanie wierzchołków
         if vertex not in self._graph_dict:
-            self._graph_dict.update({vertex: set()})
-        else: print("Wierzchołek " + str(vertex) + " juz istnieje.")
+            self._graph_dict.[vertex] = set()
+        else: raise ValueError("Wierzchołek " + str(vertex) + " juz istnieje.")
 
     def del_vertex(self, vertex):   #usuwanie wierzchołka
         try:
@@ -14,10 +14,10 @@ class Graph:
                     self._graph_dict[x].remove(vertex)
             del self._graph_dict[vertex]
         except KeyError:
-            print("Nie istnieje wierzchołek " + str(vertex) + ", zatem nie mozna go usunąć.")
+            print("Nie istnieje wierzchołek " + str(vertex) + ", zatem nie mozna go usunąć.")  # zamienił stryjek siekierkę na kijek
 
     def add_edge(self, v1, v2):       #dodawanie krawędzi
-        if (v1 in self._graph_dict.keys()) & (v2 in self._graph_dict.keys()):
+        if (v1 in self._graph_dict.keys()) & (v2 in self._graph_dict.keys()):  # and i & to nie to samo
             for x, y in [(v1, v2), (v2, v1)]:
                 self._graph_dict[x].add(y)
         else: print("Nie można dodać krawędzi (" + str(v1) + ", " + str(v2) + "). \nDodaj odpowiednie wierchołki.")
