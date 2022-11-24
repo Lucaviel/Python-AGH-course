@@ -97,3 +97,5 @@ def search(automat, text):
 print(search(build(['abc', 'aab', 'cba']), 'aacbabc'))
 print(search(build(['he','she','hers','his']), 'ahishers'))
 print(search(build(['abcd', 'bc']), 'abcd'))
+
+print(build(['he','she','hers','his']))

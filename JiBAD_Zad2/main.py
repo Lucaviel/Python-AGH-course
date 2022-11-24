@@ -99,15 +99,15 @@ if __name__ == '__main__':
     graph1.add_edge(3, 6)
     graph1.print()
 
-    graph1.del_vertex(10)
-
-    hood = graph1.neighbourhood(3);
-    print(hood)
-
-    print('\n')
-    for value in graph1.dfs(2):
-        print(value, end=' ')
-
-    print('\n')
-    for value in graph1.bfs(2):
-        print(value, end=' ')
+    # graph1.del_vertex(10)
+    #
+    # hood = graph1.neighbourhood(3);
+    # print(hood)
+    #
+    # print('\n')
+    # for value in graph1.dfs(2):
+    #     print(value, end=' ')
+    #
+    # print('\n')
+    # for value in graph1.bfs(2):
+    #     print(value, end=' ')
