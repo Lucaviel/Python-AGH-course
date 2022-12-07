@@ -35,14 +35,14 @@ class AhoCorasick:
         self.number_states, self.inside, self.position = self.build(patterns)
         self._fail_link = FailLink(self.number_states,self._graph_dict)  #graf z fail-linkami
 
-    def print(self):    #wyświetlenie grafu
+    def print(self):    #wyświetlenie grafu # to powinna być raczej metoda __str__ i powinna zwracać napis, a nie wypisywać go
         self._graph_dict.print()
 
     def build(self, patterns):
         try:
             patterns = sorted(patterns, key=len)  # sortujemy wzorce od najkrótszego do najdłuższego
         except TypeError:
-            print('Lista wzorców może byc wypełniona tylko napisami/stringami!')
+            print('Lista wzorców może byc wypełniona tylko napisami/stringami!')    # po co Pani łapie ten wyjątek, skoro i tak trzeba skończyć program?
             sys.exit()
 
         total_index = 0  #zredukowana liczba wierzchołków,
@@ -93,7 +93,7 @@ class AhoCorasick:
                                 found.append(i + 1 - self.inside[text[(i + 1 - pattern_length):(i + 1)]])
                         break
         else:
-            print('Tekst, w którym chcesz znaleźć wzory, może być tylko napisem/stringiem!\n')
+            print('Tekst, w którym chcesz znaleźć wzory, może być tylko napisem/stringiem!\n')  # lepiej raise TypeError
             sys.exit()
 
         return found

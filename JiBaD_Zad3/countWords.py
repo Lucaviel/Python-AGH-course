@@ -1,15 +1,15 @@
 import operator
 MARKS = [',', '.', ';', ':', '?','!', '-', '"', '(', ')', '/', '\x84']
 
-def gen_tokens(filename, n):
+def gen_tokens(filename, n):  # przydałaby się jakaś dekompozycja  # myląca nazwa
     with open(filename, 'r', encoding='utf-8') as infile:  #może też być encoding='iso-8859-2', usuwa '\x84' jednak nie odczytuje polskich liter poprawnie
-        words_number = {}
+        words_number = {}  # polecam klasę collections.Counter
         for line in infile:
             text = line.split()
             for word in text:
                 for mark in MARKS:  #usuwamy znaki interpunkcyjne znajdujce się w liście MARKS
                     if mark in word:
-                        word = word.replace(mark, '')
+                        word = word.replace(mark, '')  # warto użyć re.sub, albo regex.sub
                 word = word.strip()
                 if word == '':      #omijanie pustych wyrazów, które powstały poprzez usunięcie pojedynczego znaku interpunkcyjnego
                     continue        #który był uważany jako pojedynczy wyraz
