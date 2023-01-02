@@ -1,3 +1,5 @@
+# to nie jest zadanie na jeden plik
+
 from datetime import datetime, timedelta, date
 
 # Pliki
@@ -22,7 +24,7 @@ SEP = "$"
 def reader_login():   # Np. Markowska Patrycja, hasło: 0000
     name, password = input_user_data()
     new_reader = Reader(name, password)
-    while new_reader.reader_name is not None:
+    while new_reader.reader_name is not None:  # mało czytelny sposób sygnalizacji końca
         new_reader.menu()
     del new_reader
 
@@ -81,7 +83,7 @@ def input_user_data():
 
 # Klasy
 class Library:
-    library = {}  # baza wszystkich książek
+    library = {}  # baza wszystkich książek  # to jest atrybut klasowy
     readers = {}  # baza wszystkich czytelników i ich wypożyczonych książek
     readers_passwords = {}      # baza haseł użytkowników
     authors = []  # lista z indeksami autorów
@@ -176,7 +178,6 @@ class Library:
                 assert choice in correct_choices
             except (ValueError, AssertionError):
                 print("Podaj odpowiedni numer.")
-                pass
             else:
                 func, args, kwargs = options[choice - 1][1]
                 return func(*args, **kwargs)
@@ -218,10 +219,10 @@ class Library:
                     print("Wypożyczona do " + text[4])
                 else:
                     print("Dostępna")
-        self.menu()
+        self.menu()  # taka rekurencja nas wykończy przy dłuższym używaniu systemu
 
 
-class Reader(Library):
+class Reader(Library):  # czytelnik jest szczególnym przypadkiem biblioteki?
     def __init__(self, name, password):
         super().__init__()
         self.reader_name = self.check_users(name, password, self.readers_passwords)
