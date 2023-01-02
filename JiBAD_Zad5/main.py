@@ -2,7 +2,8 @@ import numpy as np
 from reader import read_data
 from collections import Counter
 import metric
-import view
+import view  # circular import
+from warnings import warn
 
 SET = "bazadanych.txt"
 PROBA = "proba.txt"
@@ -15,15 +16,14 @@ class Neighbours:               # klasa opisująca punkty/sąsiadów
         self.distance = distance
 
 
-def train(sample, function_name):
-    data, labels = read_data(SET)           # pobranie danych - współrzędne punktów i etykiety
-    func = getattr(metric, function_name)   # ustalenie metryki z modułu metric
+def train(sample, function_name):  # a to nie powinna być metoda? train nie robi tego, co miało robić
+    data, labels = read_data(SET)           # pobranie danych - współrzędne punktów i etykiety  # a czemu z pliku, którego nazwy nie kontroluję?
+    func = getattr(metric, function_name)   # ustalenie metryki z modułu metric  # nazwa func
     sort_distances = []                     # tablica obiektów klasy Neighbours
-    count = 0                               # liczenie sąsiadów
+    count = len(data)                               # liczenie sąsiadów
     for row in data:
         distance = func(sample, row)        # policzenie odległości wg wybranej wcześniej metryki
         sort_distances.append(Neighbours(labels[count], distance))
-        count += 1
     sort_distances.sort(key=lambda x: x.distance, reverse=False)    # posortowanie tablicy wg długości od najmniejsze
     return sort_distances
 
@@ -38,7 +38,7 @@ def kNN(k, sample):
     try:
         last_neighbour = neighbourhood[k - 1]           # znalezienie k-tego sąsiada
     except IndexError:
-        print("Nie ma tylu sąsiadów. Obliczenia zostaną przeprowadzone dla wszystkich punktów.")
+        warn("Nie ma tylu sąsiadów. Obliczenia zostaną przeprowadzone dla wszystkich punktów.")
         last_neighbour = neighbourhood[len(neighbourhood)-1]
     # wybranie sąsiadów, którzy są w odległości mniejszej bądź równej od k-tego sąsiada
     selected_neighbourhood = [x for x in neighbourhood if x.distance <= last_neighbour.distance]
