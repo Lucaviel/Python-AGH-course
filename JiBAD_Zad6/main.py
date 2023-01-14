@@ -27,7 +27,7 @@ if __name__ == "__main__":
     df_gen1 = df_week_ind.loc[df_week_ind['SOURCE_KEY'] == '1BY6WEcLGh8j5v7']
 
     # średnie AC_POWER dla wszystkich generatorów
-    df_all_means = df_week.groupby(['SOURCE_KEY', "DATE_TIME"], as_index=False)['AC_POWER'].mean()
+    df_all_means = df_week.groupby(['SOURCE_KEY', "DATE_TIME"], as_index=False)['AC_POWER'].mean()  # czemu po dwóch kolumnach grupowanie?
     df_all_means_plot = df_all_means.plot(x='DATE_TIME', y='AC_POWER', label="Średnie wszystkich")
     df_gen1.AC_POWER.plot(ax=df_all_means_plot, color="yellow", label="1 generator")
     # df_gen1.AC_POWER.plot(color="blue", label="1 generator")
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     plt.show()
 
     # kiedy AC_POWER któregoś z generatorów było na poziomie < 80% średniej
-    mean = df_week.AC_POWER.mean()
+    mean = df_week.AC_POWER.mean()  # nie o tę średnią chodziło
     df_mean_most = df_week[df_week['AC_POWER'] < 0.8 * mean].groupby('SOURCE_KEY').size().sort_values(ascending=False)
     print("Najczęstsze generatory o wartościach mniejszej od 80% średniej: ")
     print(df_mean_most.head())
